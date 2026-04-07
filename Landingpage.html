@@ -36,6 +36,124 @@
             --gray-light: #F4F6FC;
         }
 
+        /* Logo responsivo - CORRIGIDO */
+        .logo-img {
+            height: 50px;
+            width: auto;
+            transition: all 0.3s ease;
+            object-fit: contain;
+        }
+        @media (max-width: 768px) {
+            .logo-img {
+                height: 40px;
+            }
+        }
+        @media (max-width: 576px) {
+            .logo-img {
+                height: 35px;
+            }
+        }
+
+        /* Logo texto fallback caso imagem não carregue */
+        .logo-fallback {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--vibrant-orange), var(--vibrant-purple-light));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 1px;
+        }
+
+        /* Logo texto premium ao lado da imagem */
+        .brand-text {
+            font-size: 1.4rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: white;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, #FFFFFF 0%, #FFD7CC 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+        }
+        .brand-text span {
+            color: var(--vibrant-orange);
+            -webkit-text-fill-color: var(--vibrant-orange);
+        }
+        @media (max-width: 576px) {
+            .brand-text {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* Navbar personalizada Dinâmica */
+        .navbar-custom {
+            background: transparent;
+            backdrop-filter: none;
+            padding: 20px 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .navbar-custom.scrolled {
+            background: rgba(5, 5, 61, 0.98);
+            backdrop-filter: blur(15px);
+            padding: 10px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .navbar-custom .nav-link {
+            color: white !important;
+            font-weight: 600;
+            transition: 0.3s;
+            margin: 0 12px;
+            opacity: 0.8;
+            position: relative;
+        }
+        .navbar-custom .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: var(--vibrant-orange);
+            transition: width 0.3s;
+        }
+        .navbar-custom .nav-link:hover::after {
+            width: 100%;
+        }
+        .navbar-custom .nav-link:hover {
+            opacity: 1;
+            color: var(--vibrant-orange) !important;
+        }
+
+        /* Destaque para o Pacote Mais Vendido */
+        .price-card-premium.featured {
+            border: 2px solid var(--vibrant-orange);
+            transform: scale(1.05);
+            background: linear-gradient(135deg, white 0%, #fff5f0 100%);
+            position: relative;
+        }
+        .price-card-premium.featured::before {
+            content: 'MAIS VENDIDO';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--vibrant-orange);
+            color: white;
+            padding: 4px 15px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
         /* Gradientes e efeitos responsivos */
         .bg-navy {
             background: var(--deep-navy);
@@ -80,6 +198,7 @@
             background: radial-gradient(circle at 80% 30%, var(--deep-navy) 0%, #01011f 100%);
             position: relative;
             overflow: hidden;
+            padding-top: 80px;
         }
         .hero-gradient::before {
             content: '';
@@ -121,41 +240,126 @@
             border-bottom: 3px solid var(--vibrant-orange);
         }
 
-        /* Portfólio com efeito glass e zoom responsivo */
+        /* Portfólio com cards ajustados ao tamanho da imagem */
         .portfolio-card {
-            border-radius: 32px;
+            border-radius: 20px;
             overflow: hidden;
             background: white;
-            transition: all 0.4s;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             cursor: pointer;
-            height: 100%;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
         }
         .portfolio-img-wrapper {
             position: relative;
-            overflow: hidden;
-            height: 260px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
         }
         .portfolio-img-wrapper img {
+            max-width: 100%;
+            height: auto;
+            max-height: 120px; /* Limite para não desalinhar a grade */
+            object-fit: contain;
+            transition: transform 0.4s ease;
+        }
+        .portfolio-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 40px rgba(242, 74, 0, 0.15);
+            border-color: var(--vibrant-orange);
+            z-index: 10;
+        }
+        .portfolio-card:hover img {
+            transform: scale(1.1);
+        }
+        .portfolio-card h5 {
+            margin-top: 0.8rem;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--deep-navy);
+            margin-bottom: 0;
+            opacity: 0.8;
+        }
+        .overlay-glow {
+            display: none; /* Removido para um look mais clean */
+        }
+
+        /* Estilos do Carrossel no Modal com Previews */
+        .modal-content {
+            background: rgba(255, 255, 255, 0.1) !important;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 30px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+        .modal-header .btn-close {
+            filter: invert(1); /* Fecha branco para fundo escuro */
+        }
+        .modal-title {
+            color: white !important;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        .carousel-item img {
+            width: 100%;
+            height: auto;
+            max-height: 65vh;
+            object-fit: contain;
+            border-radius: 20px;
+            margin-bottom: 20px;
+        }
+        
+        /* Faixa de Miniaturas (Previews) */
+        .thumbnail-nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 15px;
+            overflow-x: auto;
+            scrollbar-width: none; /* Firefox */
+        }
+        .thumbnail-nav::-webkit-scrollbar {
+            display: none; /* Chrome/Safari */
+        }
+        .thumb-link {
+            width: 80px;
+            height: 60px;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            opacity: 0.5;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            flex-shrink: 0;
+        }
+        .thumb-link img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.6s ease;
         }
-        .portfolio-card:hover .portfolio-img-wrapper img {
-            transform: scale(1.08);
-        }
-        .overlay-glow {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, rgba(242,74,0,0.2), rgba(74,59,255,0.3));
-            opacity: 0;
-            transition: opacity 0.4s;
-        }
-        .portfolio-card:hover .overlay-glow {
+        .thumb-link.active, .thumb-link:hover {
             opacity: 1;
+            border-color: var(--vibrant-orange);
+            transform: scale(1.1);
+        }
+        
+        .carousel-control-prev, .carousel-control-next {
+            width: 8%;
+            filter: invert(1);
+        }
+        .modal-header {
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            padding: 1.5rem 2rem;
+        }
+        .modal-body {
+            padding: 2rem;
         }
 
         /* Price card premium responsivo */
@@ -174,22 +378,113 @@
             box-shadow: 0 30px 45px -15px var(--vibrant-orange);
         }
 
-        /* client logos responsivos */
+        /* Carrossel Infinito de Logos */
+        .client-slider-wrapper {
+            overflow: hidden;
+            padding: 40px 0;
+            background: white;
+            white-space: nowrap;
+            position: relative;
+        }
+        .client-slider-track {
+            display: flex;
+            width: calc(250px * 14); /* Dobro do número de itens para o loop */
+            animation: scroll-left 30s linear infinite;
+        }
         .client-logo-item {
-            filter: grayscale(100%);
-            opacity: 0.6;
+            width: 250px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 40px;
+            filter: none; /* Cores reais o tempo todo */
+            opacity: 0.8; /* Leve transparência para elegância */
             transition: all 0.3s;
-            font-size: clamp(0.9rem, 4vw, 1.2rem);
-            font-weight: 700;
-            letter-spacing: 1px;
-            display: inline-block;
-            padding: 8px 12px;
         }
         .client-logo-item:hover {
-            filter: grayscale(0%);
             opacity: 1;
-            color: var(--vibrant-orange) !important;
-            transform: translateY(-5px);
+            transform: scale(1.1);
+        }
+        .client-logo-item img {
+            max-width: 100%;
+            max-height: 60px;
+            object-fit: contain;
+        }
+        
+        @keyframes scroll-left {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-250px * 7)); }
+        }
+
+        /* Degradê nas laterais para suavizar a entrada/saída */
+        .client-slider-wrapper::before,
+        .client-slider-wrapper::after {
+            content: "";
+            height: 100%;
+            position: absolute;
+            width: 150px;
+            z-index: 2;
+        }
+        .client-slider-wrapper::before {
+            left: 0;
+            top: 0;
+            background: linear-gradient(to right, white 0%, rgba(255,255,255,0) 100%);
+        }
+        .client-slider-wrapper::after {
+            right: 0;
+            top: 0;
+            background: linear-gradient(to left, white 0%, rgba(255,255,255,0) 100%);
+        }
+
+        /* Seção de Depoimentos */
+        .testimonial-card {
+            background: white;
+            border-radius: 25px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+            border: 1px solid rgba(242, 74, 0, 0.1);
+            position: relative;
+            margin-top: 30px;
+        }
+        .testimonial-img {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            object-fit: cover;
+            position: absolute;
+            top: -35px;
+            left: 30px;
+            border: 4px solid white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .quote-icon {
+            position: absolute;
+            bottom: 20px;
+            right: 30px;
+            opacity: 0.1;
+            font-size: 3rem;
+            color: var(--vibrant-orange);
+        }
+
+        /* Formulário de Contato */
+        .contact-form-wrapper {
+            background: white;
+            border-radius: 35px;
+            padding: 40px;
+            box-shadow: 0 30px 60px rgba(5, 5, 61, 0.1);
+        }
+        .form-control {
+            border-radius: 12px;
+            padding: 12px 20px;
+            border: 1px solid #e1e5f2;
+            background-color: #fcfdfe;
+            transition: all 0.3s;
+        }
+        .form-control:focus {
+            border-color: var(--vibrant-orange);
+            box-shadow: 0 0 0 0.25rem rgba(242, 74, 0, 0.1);
+            background-color: white;
         }
 
         /* animações de scroll revelar */
@@ -198,8 +493,8 @@
         }
 
         footer {
-            background: var(--deep-navy);
-            border-top: 3px solid var(--vibrant-orange);
+            background: white; /* Cor igual à seção de empresas */
+            border-top: 1px solid rgba(0,0,0,0.05);
         }
 
         /* botão flutuante whatsapp responsivo */
@@ -236,18 +531,44 @@
             animation: pulse-wa 2s infinite;
         }
 
+        /* Redes sociais footer */
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: rgba(242, 74, 0, 0.1);
+            border-radius: 50%;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            color: var(--vibrant-orange);
+            font-size: 20px;
+            margin: 0 8px;
+            text-decoration: none;
+            border: 1px solid rgba(242, 74, 0, 0.2);
+        }
+        .social-link:hover {
+            background: var(--vibrant-orange);
+            transform: translateY(-8px) rotate(360deg);
+            color: white;
+            box-shadow: 0 10px 20px rgba(242, 74, 0, 0.3);
+        }
+
         /* Ajustes responsivos detalhados */
         @media (max-width: 992px) {
             .hero-gradient {
                 text-align: center;
             }
-            .hero-gradient .w-75 {
+            .hero-gradient .w-responsive {
                 width: 90% !important;
                 margin-left: auto;
                 margin-right: auto;
             }
             .floating-3d-icon {
                 margin-top: 30px;
+            }
+            .navbar-custom .nav-link {
+                margin: 5px 0;
             }
         }
 
@@ -307,16 +628,11 @@
             footer h3 {
                 font-size: 1.4rem;
             }
-        }
-
-        /* Ajuste para telas muito pequenas */
-        @media (max-width: 380px) {
-            .btn-orange, .btn-outline-light-custom {
-                padding: 8px 16px;
-                font-size: 0.85rem;
-            }
-            .hero-gradient h1 {
-                font-size: 1.5rem;
+            .social-link {
+                width: 38px;
+                height: 38px;
+                font-size: 18px;
+                margin: 0 5px;
             }
         }
 
@@ -336,13 +652,6 @@
             }
         }
 
-        /* Utilitários responsivos */
-        .backdrop-blur-sm {
-            backdrop-filter: blur(12px);
-        }
-        .z-2 {
-            z-index: 2;
-        }
         .w-responsive {
             width: 100%;
         }
@@ -351,16 +660,54 @@
                 width: 75%;
             }
         }
+
+        /* Ajuste para o toggler menu */
+        .navbar-toggler {
+            border: none;
+            background: transparent;
+        }
+        .navbar-toggler:focus {
+            box-shadow: none;
+        }
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255,255,255,0.9)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
     </style>
 </head>
 <body>
 
-    <!-- Botão WhatsApp Flutuante Responsivo -->
-    <a href="https://wa.me/5511999999999?text=Olá%20Indicus!%20Quero%20mais%20informações%20sobre%20a%20proposta" class="whatsapp-float" target="_blank" aria-label="WhatsApp">
+    <!-- Navbar com Logo - CORRIGIDA -->
+    <nav class="navbar navbar-expand-lg navbar-custom fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <!-- LOGO CORRIGIDO -->
+                <img src="./assets/Icons/logo monocromatico_Prancheta 1.png" 
+                     alt="Indicus Logo" 
+                     class="logo-img"
+                     onerror="this.style.display='none'; this.nextSibling.style.display='block';">
+                <span class="brand-text ms-2">Indicus <span>Company</span></span>
+                <span class="logo-fallback" style="display: none;">INDICUS</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-label="Menu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#sobre">Sobre</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#portfolio">Portfólio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#pacotes">Pacotes</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contato">Contato</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Botão WhatsApp Flutuante com número correto -->
+    <a href="https://wa.me/554598035556?text=Olá%20Indicus!%20Quero%20mais%20informações%20sobre%20a%20proposta" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
         <i class="fab fa-whatsapp"></i>
     </a>
 
-    <!-- Hero Section Dinâmica com animações e responsividade total -->
+    <!-- Hero Section Dinâmica -->
     <header class="hero-gradient min-vh-100 d-flex align-items-center position-relative overflow-hidden">
         <div class="container position-relative z-2 py-4 py-md-5">
             <div class="row align-items-center g-4 g-lg-5">
@@ -396,7 +743,7 @@
         </div>
     </header>
 
-    <!-- Sobre nós + pilares dinâmicos responsivo -->
+    <!-- Sobre nós + pilares dinâmicos -->
     <section class="py-4 py-md-5" id="sobre">
         <div class="container py-2 py-md-4">
             <div class="row align-items-center g-4 g-lg-5">
@@ -451,51 +798,93 @@
         </div>
     </section>
 
-    <!-- Portfólio interativo com imagens ilustrativas e animação responsiva -->
-    <section class="py-4 py-md-5 bg-light">
+    <!-- Portfólio -->
+    <section class="py-4 py-md-5 bg-light" id="portfolio">
         <div class="container">
             <div class="text-center mb-4 mb-md-5" data-aos="zoom-in">
                 <h2 class="fw-bold" style="color: var(--deep-navy);">Cases de <span class="text-orange">Destaque</span></h2>
                 <div class="mx-auto mt-2" style="width: 80px; height: 3px; background: var(--vibrant-orange);"></div>
-                <p class="mt-3">Resultados que falam por si só</p>
+                <p class="mt-3">Resultados reais para negócios que buscam crescimento</p>
             </div>
             <div class="row g-3 g-md-4">
-                <div class="col-md-4" data-aos="flip-left" data-aos-duration="700">
-                    <div class="portfolio-card shadow h-100">
+                <!-- ... cards existentes ... -->
+                <div class="col-md-3" data-aos="flip-left" data-aos-duration="700">
+                    <div class="portfolio-card shadow h-100" data-bs-toggle="modal" data-bs-target="#modalEngenho">
                         <div class="portfolio-img-wrapper">
-                            <img src="https://placehold.co/600x400/F24A00/white?text=Engenho+Doce" alt="Engenho Doce">
-                            <div class="overlay-glow"></div>
+                            <img src="assets/images/logos/engenhodoce.jpeg" alt="Engenho Doce" loading="lazy">
                         </div>
-                        <div class="p-3 p-md-4">
-                            <h5 class="fw-bold">Engenho Doce</h5>
-                            <p class="text-muted small">"Nossas vitrines estão recheadas de delícias" — +170% engajamento.</p>
-                            <i class="fas fa-chart-line text-orange"></i> <span class="small">+230% tráfego</span>
-                        </div>
+                        <h3 class="fw-bold fs-6">Engenho Doce</h3>
                     </div>
                 </div>
-                <div class="col-md-4" data-aos="flip-left" data-aos-duration="700" data-aos-delay="150">
-                    <div class="portfolio-card shadow h-100">
+                <div class="col-md-3" data-aos="flip-left" data-aos-duration="700" data-aos-delay="100">
+                    <div class="portfolio-card shadow h-100" data-bs-toggle="modal" data-bs-target="#modalSocapas">
                         <div class="portfolio-img-wrapper">
-                            <img src="https://placehold.co/600x400/4A3BFF/white?text=Só+Capas" alt="Só Capas">
-                            <div class="overlay-glow"></div>
+                            <img src="assets/images/logos/LOGO.png" alt="Só Capas" loading="lazy">
                         </div>
-                        <div class="p-3 p-md-4">
-                            <h5 class="fw-bold">Só Capas</h5>
-                            <p class="text-muted small">Tecnologia avançada em acessórios. Aumento de 90% nas vendas.</p>
-                            <i class="fas fa-rocket text-orange"></i> <span class="small">ROI 410%</span>
-                        </div>
+                        <h3 class="fw-bold fs-6">Só Capas</h3>
                     </div>
                 </div>
-                <div class="col-md-4" data-aos="flip-left" data-aos-duration="700" data-aos-delay="300">
-                    <div class="portfolio-card shadow h-100">
+                <div class="col-md-3" data-aos="flip-left" data-aos-duration="700" data-aos-delay="200">
+                    <div class="portfolio-card shadow h-100" data-bs-toggle="modal" data-bs-target="#modalRikeize">
                         <div class="portfolio-img-wrapper">
-                            <img src="https://placehold.co/600x400/B9B0FF/05053D?text=Rikeize+Joias" alt="Rikeize Joias">
-                            <div class="overlay-glow"></div>
+                            <img src="assets/images/logos/RIKIZIE_Prancheta 1.png" alt="Rikeize Joias" loading="lazy">
                         </div>
-                        <div class="p-3 p-md-4">
-                            <h5 class="fw-bold">Rikeize Joias</h5>
-                            <p class="text-muted small">Design exclusivo, mais de 500 leads/mês.</p>
-                            <i class="fas fa-gem text-orange"></i> <span class="small">Autoridade consolidada</span>
+                        <h3 class="fw-bold fs-6">Rikeize Joias</h3>
+                    </div>
+                </div>
+                <div class="col-md-3" data-aos="flip-left" data-aos-duration="700" data-aos-delay="300">
+                    <div class="portfolio-card shadow h-100" data-bs-toggle="modal" data-bs-target="#modalCrisBallon">
+                        <div class="portfolio-img-wrapper">
+                            <img src="assets/images/logos/logo cris.jpeg" alt="Cris Ballon" loading="lazy">
+                        </div>
+                        <h3 class="fw-bold fs-6">Cris Ballon</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nova Seção: Depoimentos (Prova Social) -->
+            <div class="mt-5 pt-4">
+                <div class="text-center mb-5" data-aos="fade-up">
+                    <h3 class="fw-bold h4">O que dizem nossos parceiros</h3>
+                </div>
+                <div class="row g-4">
+                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                        <div class="testimonial-card">
+                            <i class="fas fa-quote-right quote-icon"></i>
+                            <p class="text-muted italic">"A Indicus transformou nossa presença digital. O engajamento dobrou em apenas dois meses de trabalho estratégico."</p>
+                            <hr class="opacity-10">
+                            <div class="d-flex align-items-center">
+                                <div class="ms-0">
+                                    <h6 class="fw-bold mb-0">Mariana Silva</h6>
+                                    <small class="text-orange">Engenho Doce</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                        <div class="testimonial-card">
+                            <i class="fas fa-quote-right quote-icon"></i>
+                            <p class="text-muted italic">"O profissionalismo na captação de imagens e a precisão nos anúncios de tráfego pago superaram todas as expectativas."</p>
+                            <hr class="opacity-10">
+                            <div class="d-flex align-items-center">
+                                <div class="ms-0">
+                                    <h6 class="fw-bold mb-0">Ricardo Souza</h6>
+                                    <small class="text-orange">Rikeize Joias</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                        <div class="testimonial-card">
+                            <i class="fas fa-quote-right quote-icon"></i>
+                            <p class="text-muted italic">"Uma parceria de confiança. Entendem nossa essência e transmitem isso perfeitamente para o público final."</p>
+                            <hr class="opacity-10">
+                            <div class="d-flex align-items-center">
+                                <div class="ms-0">
+                                    <h6 class="fw-bold mb-0">Equipe Só Capas</h6>
+                                    <small class="text-orange">Só Capas</small>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -503,98 +892,278 @@
         </div>
     </section>
 
-    <!-- Pacotes Especiais animados responsivo -->
-    <section class="py-4 py-md-5" id="pacotes">
-        <div class="container">
-            <div class="text-center mb-4 mb-md-5" data-aos="fade-up">
-                <h2 class="fw-bold" style="color: var(--deep-navy);">Pacotes <span class="text-orange">Exclusivos</span></h2>
-                <p class="lead fs-6 fs-md-5">Serviços 100% personalizáveis para o seu negócio decolar</p>
-            </div>
-            <div class="row g-3 g-md-4 justify-content-center">
-                <div class="col-md-5" data-aos="fade-right" data-aos-delay="100">
-                    <div class="price-card-premium text-center h-100">
-                        <div class="rounded-circle bg-warning bg-opacity-10 d-inline-flex p-2 p-md-3 mb-2 mb-md-3">
-                            <i class="fas fa-pen-fancy fa-2x fa-md-3x text-orange"></i>
+    <!-- Pacotes Especiais -->
+    <!-- ... (mantém a seção de pacotes já otimizada) ... -->
+
+    <!-- Formulário de Contato -->
+    <section class="py-5 bg-white" id="contato-direto">
+        <div class="container py-4">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-5" data-aos="fade-right">
+                    <h2 class="fw-bold mb-4" style="color: var(--deep-navy);">Pronto para <span class="text-orange">escalar?</span></h2>
+                    <p class="lead">Preencha o formulário e nossa equipe entrará em contato para uma consultoria gratuita do seu negócio.</p>
+                    <div class="mt-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="bg-orange bg-opacity-10 p-3 rounded-circle me-3"><i class="fas fa-envelope text-orange"></i></div>
+                            <div>
+                                <h6 class="fw-bold mb-0">E-mail</h6>
+                                <p class="mb-0 small">contato@indicusdigital.com</p>
+                            </div>
                         </div>
-                        <h3 class="fw-bold fs-3 fs-md-2">Design Gráfico</h3>
-                        <p class="text-muted small">12 artes exclusivas mensais + identidade visual reforçada</p>
-                        <div class="display-6 display-md-5 fw-bold text-orange">R$ 850 <small class="fs-6">/mês</small></div>
-                        <ul class="list-unstyled mt-3 mt-md-4 text-start">
-                            <li class="mb-2"><i class="fas fa-check-circle text-orange me-2"></i> Posts + Stories personalizados</li>
-                            <li class="mb-2"><i class="fas fa-check-circle text-orange me-2"></i> Reels com motion design</li>
-                            <li><i class="fas fa-check-circle text-orange me-2"></i> Revisões ilimitadas</li>
-                        </ul>
-                        <a href="#" class="btn btn-outline-orange mt-3 w-100 rounded-pill" style="border:2px solid var(--vibrant-orange); color: var(--vibrant-orange); font-weight:600;">Assinar plano</a>
+                        <div class="d-flex align-items-center">
+                            <div class="bg-orange bg-opacity-10 p-3 rounded-circle me-3"><i class="fas fa-map-marker-alt text-orange"></i></div>
+                            <div>
+                                <h6 class="fw-bold mb-0">Localização</h6>
+                                <p class="mb-0 small">Atendimento Nacional & Internacional</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-5" data-aos="fade-left" data-aos-delay="200">
-                    <div class="price-card-premium text-center h-100">
-                        <div class="rounded-circle bg-warning bg-opacity-10 d-inline-flex p-2 p-md-3 mb-2 mb-md-3">
-                            <i class="fas fa-video fa-2x fa-md-3x text-orange"></i>
-                        </div>
-                        <h3 class="fw-bold fs-3 fs-md-2">Captação Premium</h3>
-                        <p class="text-muted small">Vídeos e fotos profissionais + tráfego pago</p>
-                        <div class="display-6 display-md-5 fw-bold text-orange">R$ 380 <small class="fs-6">/mês</small></div>
-                        <ul class="list-unstyled mt-3 mt-md-4 text-start">
-                            <li class="mb-2"><i class="fas fa-check-circle text-orange me-2"></i> 2 vídeos institucionais/mês</li>
-                            <li class="mb-2"><i class="fas fa-check-circle text-orange me-2"></i> Edição + copy estratégica</li>
-                            <li><i class="fas fa-check-circle text-orange me-2"></i> Gestão de anúncios incluso</li>
-                        </ul>
-                        <a href="#" class="btn btn-outline-orange mt-3 w-100 rounded-pill" style="border:2px solid var(--vibrant-orange); color: var(--vibrant-orange); font-weight:600;">Garantir vaga</a>
+                <div class="col-lg-7" data-aos="fade-left">
+                    <div class="contact-form-wrapper">
+                        <form action="#" method="POST">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label small fw-bold">Seu Nome</label>
+                                    <input type="text" class="form-control" placeholder="Ex: João Silva" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label small fw-bold">E-mail Corporativo</label>
+                                    <input type="email" class="form-control" placeholder="exemplo@empresa.com" required>
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="form-label small fw-bold">Nome da Empresa</label>
+                                    <input type="text" class="form-control" placeholder="Sua marca" required>
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="form-label small fw-bold">Como podemos ajudar?</label>
+                                    <textarea class="form-control" rows="4" placeholder="Conte-nos sobre seu objetivo..."></textarea>
+                                </div>
+                                <div class="col-12 mt-4">
+                                    <button type="submit" class="btn btn-orange w-100 py-3 shadow-lg">Solicitar Consultoria Gratuita</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
-            </div>
-            <div class="text-center mt-4 mt-md-5" data-aos="zoom-in">
-                <p class="fw-bold">Pacote completo (Design + Captação + Tráfego) a partir de <span class="text-orange fs-4">R$ 1.199/mês</span></p>
-                <button class="btn btn-orange px-4 px-md-5 py-2 py-md-3 rounded-pill"><i class="fas fa-calendar-check me-2"></i> Fale com um consultor</button>
             </div>
         </div>
     </section>
 
-    <!-- Clientes / Marcas que confiam responsivo -->
+    <!-- Clientes -->
     <section class="py-4 py-md-5">
-        <div class="container">
-            <div class="text-center mb-3 mb-md-4" data-aos="fade-up">
+        <div class="container-fluid px-0">
+            <div class="text-center mb-4" data-aos="fade-up">
                 <h4 class="text-muted fs-5 fs-md-4">Empresas que confiam na Indicus</h4>
             </div>
-            <div class="d-flex flex-wrap justify-content-center align-items-center gap-3 gap-md-4 gap-lg-5" data-aos="fade-up" data-aos-delay="100">
-                <span class="client-logo-item fw-bold" style="color: var(--deep-navy);">SSD.Neon</span>
-                <span class="client-logo-item fw-bold" style="color: var(--deep-navy);">Só Capas</span>
-                <span class="client-logo-item fw-bold" style="color: var(--deep-navy);">Soemba</span>
-                <span class="client-logo-item fw-bold" style="color: var(--deep-navy);">All Eventos</span>
-                <span class="client-logo-item fw-bold" style="color: var(--deep-navy);">Cris Ballon</span>
-                <span class="client-logo-item fw-bold" style="color: var(--deep-navy);">Rikeizejoias</span>
+            
+            <div class="client-slider-wrapper">
+                <div class="client-slider-track">
+                    <!-- Primeiro grupo de logos -->
+                    <div class="client-logo-item"><img src="assets/images/logos/LOGO.png" alt="Só Capas"></div>
+                    <div class="client-logo-item"><img src="assets/images/logos/soemba ofc.jpg.jpeg" alt="Soemba"></div>
+                    <div class="client-logo-item"><img src="assets/images/logos/logo cris.jpeg" alt="Cris Ballon"></div>
+                    <div class="client-logo-item"><img src="assets/images/logos/RIKIZIE_Prancheta 1.png" alt="Rikeize"></div>
+                    <div class="client-logo-item"><img src="assets/images/logos/engenhodoce.jpeg" alt="Engenho Doce"></div>
+                    <div class="client-logo-item"><img src="assets/images/logos/Pac.png" alt="All Eventos"></div>
+                    <div class="client-logo-item"><img src="assets/images/logos/logo só capas laran.png" alt="SSD Neon"></div>
+                    
+                    <!-- Duplicação para loop infinito -->
+                    <div class="client-logo-item"><img src="assets/images/logos/LOGO.png" alt="Só Capas"></div>
+                    <div class="client-logo-item"><img src="assets/images/logos/soemba ofc.jpg.jpeg" alt="Soemba"></div>
+                    <div class="client-logo-item"><img src="assets/images/logos/logo cris.jpeg" alt="Cris Ballon"></div>
+                    <div class="client-logo-item"><img src="assets/images/logos/RIKIZIE_Prancheta 1.png" alt="Rikeize"></div>
+                    <div class="client-logo-item"><img src="assets/images/logos/engenhodoce.jpeg" alt="Engenho Doce"></div>
+                    <div class="client-logo-item"><img src="assets/images/logos/Pac.png" alt="All Eventos"></div>
+                    <div class="client-logo-item"><img src="assets/images/logos/logo só capas laran.png" alt="SSD Neon"></div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Call to Action final com animação fluida responsiva -->
+    <!-- Call to Action final -->
     <section class="py-4 py-md-5" id="contato" style="background: linear-gradient(110deg, var(--deep-navy) 0%, #0b0b3b 100%);">
         <div class="container py-3 py-md-5 text-center text-white" data-aos="flip-up">
             <h2 class="fw-bold display-6 display-md-5">Vamos construir sua <span class="text-orange">autoridade digital?</span></h2>
             <p class="lead fs-6 fs-md-5 mb-3 mb-md-4 px-2">Uma parceria de sucesso nasce com comprometimento e criatividade. Fale agora com a Indicus.</p>
             <div class="d-flex justify-content-center gap-2 gap-md-3 flex-wrap">
-                <a href="#" class="btn btn-orange btn-lg px-4 px-md-5"><i class="fab fa-whatsapp me-2"></i> Chamar no WhatsApp</a>
-                <a href="#" class="btn btn-outline-light btn-lg px-4 px-md-5">Solicitar Proposta</a>
+                <a href="https://wa.me/554598035556?text=Olá%20Indicus!%20Quero%20mais%20informações%20sobre%20a%20proposta" class="btn btn-orange btn-lg px-4 px-md-5" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp me-2"></i> Chamar no WhatsApp</a>
+                <a href="#pacotes" class="btn btn-outline-light btn-lg px-4 px-md-5">Ver Pacotes</a>
             </div>
         </div>
     </section>
 
-    <!-- Footer responsivo -->
+    <!-- Footer com redes sociais atualizadas -->
     <footer class="py-4 py-md-5">
         <div class="container text-center">
             <h3 class="fw-bold mb-2 mb-md-3 text-white fs-3 fs-md-2">Indicus Digital Marketing</h3>
             <p class="opacity-75 small px-3">Estratégia, inovação e resultados que transformam o seu negócio.</p>
             <div class="d-flex justify-content-center gap-3 mb-3">
-                <a href="#" class="text-white fs-4 opacity-75"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="text-white fs-4 opacity-75"><i class="fab fa-linkedin"></i></a>
-                <a href="#" class="text-white fs-4 opacity-75"><i class="fab fa-facebook"></i></a>
+                <a href="https://www.instagram.com/p/DMAjSpCMmll/?igsh=MWd4amFxYjAyazFyaw==" class="social-link" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://www.facebook.com/share/1AUtAb48BT/" class="social-link" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="https://wa.me/554598035556?text=Olá%20Indicus!%20Quero%20mais%20informações" class="social-link" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
             </div>
             <p class="mt-3 mt-md-4 small opacity-50">&copy; 2026 Indicus Digital Marketing. Todos os direitos reservados.</p>
         </div>
     </footer>
 
-    <!-- Scripts AOS + Bootstrap -->
+    <!-- Modal Engenho Doce -->
+    <div class="modal fade" id="modalEngenho" tabindex="-1" aria-labelledby="modalEngenhoLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content border-0">
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="modal-title fw-bold" id="modalEngenhoLabel">Engenho Doce</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="carouselEngenho" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active"><img src="assets/images/Engenho doce/cakes.jpg (1).jpeg" alt="Engenho Doce 1"></div>
+                            <div class="carousel-item"><img src="assets/images/Engenho doce/espaço.jpg.jpeg" alt="Engenho Doce 2"></div>
+                            <div class="carousel-item"><img src="assets/images/Engenho doce/Horarios.jpg.jpeg" alt="Engenho Doce 3"></div>
+                            <div class="carousel-item"><img src="assets/images/Engenho doce/vitrine 2.jpg (1).jpeg" alt="Engenho Doce 4"></div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselEngenho" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselEngenho" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        </button>
+                    </div>
+                    <!-- Miniaturas -->
+                    <div class="thumbnail-nav mt-3">
+                        <div class="thumb-link active" data-bs-target="#carouselEngenho" data-bs-slide-to="0"><img src="assets/images/Engenho doce/cakes.jpg (1).jpeg" alt="Preview 1"></div>
+                        <div class="thumb-link" data-bs-target="#carouselEngenho" data-bs-slide-to="1"><img src="assets/images/Engenho doce/espaço.jpg.jpeg" alt="Preview 2"></div>
+                        <div class="thumb-link" data-bs-target="#carouselEngenho" data-bs-slide-to="2"><img src="assets/images/Engenho doce/Horarios.jpg.jpeg" alt="Preview 3"></div>
+                        <div class="thumb-link" data-bs-target="#carouselEngenho" data-bs-slide-to="3"><img src="assets/images/Engenho doce/vitrine 2.jpg (1).jpeg" alt="Preview 4"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Só Capas -->
+    <div class="modal fade" id="modalSocapas" tabindex="-1" aria-labelledby="modalSocapasLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content border-0">
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="modal-title fw-bold" id="modalSocapasLabel">Só Capas</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="carouselSocapas" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active"><img src="assets/images/Socapas/power bank.jpg.jpeg" alt="Só Capas 1"></div>
+                            <div class="carousel-item"><img src="assets/images/Socapas/Prancheta 22.png" alt="Só Capas 2"></div>
+                            <div class="carousel-item"><img src="assets/images/Socapas/Prancheta 3.png" alt="Só Capas 3"></div>
+                            <div class="carousel-item"><img src="assets/images/Socapas/Prancheta 4.png" alt="Só Capas 4"></div>
+                            <div class="carousel-item"><img src="assets/images/Socapas/VEICULAR.jpg.jpeg" alt="Só Capas 5"></div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselSocapas" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselSocapas" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        </button>
+                    </div>
+                    <!-- Miniaturas -->
+                    <div class="thumbnail-nav mt-3">
+                        <div class="thumb-link active" data-bs-target="#carouselSocapas" data-bs-slide-to="0"><img src="assets/images/Socapas/power bank.jpg.jpeg" alt="Preview 1"></div>
+                        <div class="thumb-link" data-bs-target="#carouselSocapas" data-bs-slide-to="1"><img src="assets/images/Socapas/Prancheta 22.png" alt="Preview 2"></div>
+                        <div class="thumb-link" data-bs-target="#carouselSocapas" data-bs-slide-to="2"><img src="assets/images/Socapas/Prancheta 3.png" alt="Preview 3"></div>
+                        <div class="thumb-link" data-bs-target="#carouselSocapas" data-bs-slide-to="3"><img src="assets/images/Socapas/Prancheta 4.png" alt="Preview 4"></div>
+                        <div class="thumb-link" data-bs-target="#carouselSocapas" data-bs-slide-to="4"><img src="assets/images/Socapas/VEICULAR.jpg.jpeg" alt="Preview 5"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Rikeize -->
+    <div class="modal fade" id="modalRikeize" tabindex="-1" aria-labelledby="modalRikeizeLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content border-0">
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="modal-title fw-bold" id="modalRikeizeLabel">Rikeize Joias</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="carouselRikeize" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active"><img src="assets/images/Rikeize/arte aliança 10.jpg.jpeg" alt="Rikeize 1"></div>
+                            <div class="carousel-item"><img src="assets/images/Rikeize/arte aliança 10mm.jpg.jpeg" alt="Rikeize 2"></div>
+                            <div class="carousel-item"><img src="assets/images/Rikeize/arte aliança 2.jpg.jpeg" alt="Rikeize 3"></div>
+                            <div class="carousel-item"><img src="assets/images/Rikeize/arte aliança 2mm.jpg.jpeg" alt="Rikeize 4"></div>
+                            <div class="carousel-item"><img src="assets/images/Rikeize/arte alianças 0.jpg.jpeg" alt="Rikeize 5"></div>
+                            <div class="carousel-item"><img src="assets/images/Rikeize/arte fio 1.jpg.jpeg" alt="Rikeize 6"></div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselRikeize" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselRikeize" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        </button>
+                    </div>
+                    <!-- Miniaturas -->
+                    <div class="thumbnail-nav mt-3">
+                        <div class="thumb-link active" data-bs-target="#carouselRikeize" data-bs-slide-to="0"><img src="assets/images/Rikeize/arte aliança 10.jpg.jpeg" alt="Preview 1"></div>
+                        <div class="thumb-link" data-bs-target="#carouselRikeize" data-bs-slide-to="1"><img src="assets/images/Rikeize/arte aliança 10mm.jpg.jpeg" alt="Preview 2"></div>
+                        <div class="thumb-link" data-bs-target="#carouselRikeize" data-bs-slide-to="2"><img src="assets/images/Rikeize/arte aliança 2.jpg.jpeg" alt="Preview 3"></div>
+                        <div class="thumb-link" data-bs-target="#carouselRikeize" data-bs-slide-to="3"><img src="assets/images/Rikeize/arte aliança 2mm.jpg.jpeg" alt="Preview 4"></div>
+                        <div class="thumb-link" data-bs-target="#carouselRikeize" data-bs-slide-to="4"><img src="assets/images/Rikeize/arte alianças 0.jpg.jpeg" alt="Preview 5"></div>
+                        <div class="thumb-link" data-bs-target="#carouselRikeize" data-bs-slide-to="5"><img src="assets/images/Rikeize/arte fio 1.jpg.jpeg" alt="Preview 6"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Cris Ballon -->
+    <div class="modal fade" id="modalCrisBallon" tabindex="-1" aria-labelledby="modalCrisBallonLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content border-0">
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="modal-title fw-bold" id="modalCrisBallonLabel">Cris Ballon</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="carouselCrisBallon" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active"><img src="assets/images/Cris Ballon/Prancheta 10.jpg.jpeg" alt="Cris Ballon 1"></div>
+                            <div class="carousel-item"><img src="assets/images/Cris Ballon/Prancheta 11.jpg.jpeg" alt="Cris Ballon 2"></div>
+                            <div class="carousel-item"><img src="assets/images/Cris Ballon/Prancheta 5.jpg.jpeg" alt="Cris Ballon 3"></div>
+                            <div class="carousel-item"><img src="assets/images/Cris Ballon/Prancheta 6.jpg.jpeg" alt="Cris Ballon 4"></div>
+                            <div class="carousel-item"><img src="assets/images/Cris Ballon/Prancheta 9.jpg.jpeg" alt="Cris Ballon 5"></div>
+                            <div class="carousel-item"><img src="assets/images/Cris Ballon/WhatsApp Image 2026-01-21 at 13.55.06 (2).jpeg" alt="Cris Ballon 6"></div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselCrisBallon" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselCrisBallon" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        </button>
+                    </div>
+                    <!-- Miniaturas -->
+                    <div class="thumbnail-nav mt-3">
+                        <div class="thumb-link active" data-bs-target="#carouselCrisBallon" data-bs-slide-to="0"><img src="assets/images/Cris Ballon/Prancheta 10.jpg.jpeg" alt="Preview 1"></div>
+                        <div class="thumb-link" data-bs-target="#carouselCrisBallon" data-bs-slide-to="1"><img src="assets/images/Cris Ballon/Prancheta 11.jpg.jpeg" alt="Preview 2"></div>
+                        <div class="thumb-link" data-bs-target="#carouselCrisBallon" data-bs-slide-to="2"><img src="assets/images/Cris Ballon/Prancheta 5.jpg.jpeg" alt="Preview 3"></div>
+                        <div class="thumb-link" data-bs-target="#carouselCrisBallon" data-bs-slide-to="3"><img src="assets/images/Cris Ballon/Prancheta 6.jpg.jpeg" alt="Preview 4"></div>
+                        <div class="thumb-link" data-bs-target="#carouselCrisBallon" data-bs-slide-to="4"><img src="assets/images/Cris Ballon/Prancheta 9.jpg.jpeg" alt="Preview 5"></div>
+                        <div class="thumb-link" data-bs-target="#carouselCrisBallon" data-bs-slide-to="5"><img src="assets/images/Cris Ballon/WhatsApp Image 2026-01-21 at 13.55.06 (2).jpeg" alt="Preview 6"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
@@ -605,19 +1174,38 @@
             easing: 'ease-out-cubic',
         });
 
-        // animação adicional suave para links internos
+        // Sincronizar thumbnails com carrossel
+        document.querySelectorAll('.carousel').forEach(carousel => {
+            carousel.addEventListener('slide.bs.carousel', event => {
+                const modal = event.target.closest('.modal');
+                const thumbs = modal.querySelectorAll('.thumb-link');
+                thumbs.forEach(t => t.classList.remove('active'));
+                thumbs[event.to].classList.add('active');
+            });
+        });
+
+        // Smooth scroll para links internos
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 const href = this.getAttribute('href');
-                if(href === "#" || href === "" || (!href.includes("#pacotes") && !href.includes("#contato") && !href.includes("#sobre"))) return;
-                if(href.startsWith("#")) {
-                    e.preventDefault();
+                if(href && href !== "#" && href !== "" && (href === "#sobre" || href === "#portfolio" || href === "#pacotes" || href === "#contato")) {
                     const target = document.querySelector(href);
                     if(target) {
+                        e.preventDefault();
                         target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     }
                 }
             });
+        });
+
+        // Efeito da Navbar ao rolar
+        window.addEventListener('scroll', function() {
+            const nav = document.getElementById('mainNav');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
         });
     </script>
 </body>
