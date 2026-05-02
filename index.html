@@ -276,61 +276,147 @@
         border-bottom: 3px solid var(--vibrant-orange);
       }
 
-      /* Galeria de Resultados Soltos */
-      .result-print-item {
-        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-        cursor: pointer;
-        position: relative;
-        border-radius: 15px;
-        overflow: hidden;
+      /* Estilo V4 Company para Cases */
+      .section-header-v4 {
+        text-align: center;
+        margin-bottom: 50px;
       }
-      .result-print-item:hover {
-        transform: translateY(-8px) scale(1.02);
+      .section-header-v4 h2 {
+        font-weight: 800;
+        font-size: 2.5rem;
+        color: var(--deep-navy);
+        text-transform: none;
+        margin-bottom: 15px;
       }
-      .result-print-item img {
-        width: 100%;
-        height: auto;
-        border-radius: 15px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-        display: block;
-      }
-      .result-print-item::after {
-        content: "\f00e";
-        font-family: "Font Awesome 6 Free";
-        font-weight: 900;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+      .section-header-v4 .line {
+        width: 60px;
+        height: 4px;
         background: var(--vibrant-orange);
-        color: white;
-        width: 50px;
-        height: 50px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-        opacity: 0;
-        transition: all 0.3s ease;
-        z-index: 2;
+        margin: 0 auto 20px;
+        border-radius: 2px;
       }
-      .result-print-item:hover::after {
-        opacity: 1;
+      .section-header-v4 p {
+        color: #666;
+        font-size: 1.1rem;
+        max-width: 600px;
+        margin: 0 auto;
       }
-      .result-print-item::before {
-        content: "";
+
+      .case-card-v4 {
+        position: relative;
+        width: 100%;
+        max-width: 380px;
+        height: 550px;
+        margin: 0 auto;
+        border-radius: 20px;
+        overflow: hidden;
+        background: #000;
+        cursor: pointer;
+        transition: all 0.5s ease;
+      }
+      .case-card-v4 img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.9;
+        transition: all 0.5s ease;
+      }
+      .case-card-v4 .overlay-v4 {
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(5, 5, 61, 0.4);
-        opacity: 0;
-        transition: all 0.3s ease;
-        z-index: 1;
+        background: linear-gradient(
+          to top,
+          rgba(5, 5, 61, 0.95) 0%,
+          rgba(5, 5, 61, 0.4) 40%,
+          rgba(5, 5, 61, 0) 100%
+        );
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 30px;
+        transition: all 0.4s ease;
       }
-      .result-print-item:hover::before {
+      .case-card-v4 .about-v4 {
+        transform: translateY(20px);
+        transition: all 0.4s ease;
+      }
+      .case-card-v4:hover img {
+        transform: scale(1.1);
+        opacity: 0.7;
+      }
+      .case-card-v4:hover .overlay-v4 {
+        background: linear-gradient(
+          to top,
+          var(--vibrant-orange) 0%,
+          rgba(5, 5, 61, 0.8) 100%
+        );
+      }
+      .case-card-v4:hover .about-v4 {
+        transform: translateY(0);
+      }
+      .case-card-v4 .name-v4 {
+        color: white;
+        font-weight: 800;
+        font-size: 1.4rem;
+        margin-bottom: 5px;
+      }
+      .case-card-v4 .role-v4 {
+        color: var(--vibrant-orange);
+        font-weight: 600;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 15px;
+        display: block;
+      }
+      .case-card-v4:hover .role-v4 {
+        color: white;
+      }
+      .case-card-v4 .desc-v4 {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 0.9rem;
+        line-height: 1.5;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      /* Custom Arrows para o Carrossel V4 */
+      .carousel-v4-control {
+        width: 60px;
+        height: 60px;
+        background: white;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        border-radius: 50%;
         opacity: 1;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--deep-navy);
+        font-size: 1.2rem;
+        border: none;
+        position: absolute;
+        z-index: 10;
+        transition: all 0.3s ease;
+      }
+      .carousel-v4-control:hover {
+        background: var(--vibrant-orange);
+        color: white;
+        transform: translateY(-50%) scale(1.1);
+      }
+      .carousel-v4-prev { left: -80px; }
+      .carousel-v4-next { right: -80px; }
+
+      @media (max-width: 1200px) {
+        .carousel-v4-prev { left: -20px; }
+        .carousel-v4-next { right: -20px; }
+      }
+      @media (max-width: 768px) {
+        .case-card-v4 { height: 450px; }
+        .section-header-v4 h2 { font-size: 1.8rem; }
       }
       .portfolio-card h5 {
         margin-top: 0.8rem;
@@ -353,8 +439,25 @@
         border-radius: 30px;
         box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
       }
-      .modal-header .btn-close {
-        filter: invert(1); /* Fecha branco para fundo escuro */
+      /* Ajuste dos Modais para Prints Longos */
+      .modal-dialog.modal-centered-custom {
+        display: flex;
+        align-items: center;
+        min-height: calc(100% - 3.5rem);
+      }
+      .modal-body img {
+        max-width: 100%;
+        max-height: 85vh; /* Ocupa no máximo 85% da altura da tela */
+        width: auto;
+        height: auto;
+        object-fit: contain; /* Garante que a imagem inteira apareça */
+        display: block;
+        margin: 0 auto;
+      }
+      @media (max-width: 768px) {
+        .modal-body img {
+          max-height: 75vh; /* Um pouco menor no mobile para dar espaço ao fechar */
+        }
       }
       .modal-title {
         color: white !important;
@@ -1416,121 +1519,96 @@
       </div>
     </section>
 
-    <!-- Portfólio -->
-    <section class="py-4 py-md-5 bg-light" id="portfolio">
-      <div class="container">
-        <div class="text-center mb-4 mb-md-5" data-aos="zoom-in">
-          <h2 class="fw-bold" style="color: var(--deep-navy)">
-            Cases de <span class="text-orange">sucesso que provam nossa eficiência</span>
-          </h2>
-          <div
-            class="mx-auto mt-2"
-            style="width: 80px; height: 3px; background: var(--vibrant-orange)"
-          ></div>
-          <p class="mt-3 lead mx-auto" style="max-width: 800px;">
-            Resultados reais de clientes que deixaram a operação digital conosco e aumentaram vendas sem dores de cabeça.
+    <!-- Portfólio (Estilo V4 Company) -->
+    <section class="py-5 bg-white" id="portfolio" style="overflow: hidden">
+      <div class="container position-relative">
+        <div class="section-header-v4" data-aos="fade-up">
+          <h2>Cases de Sucesso</h2>
+          <div class="line"></div>
+          <p>
+            Resultados reais de clientes que confiaram na Indicus para escalar sua operação digital.
           </p>
         </div>
-        <div class="row g-4">
-          <!-- Print 1 -->
-          <div class="col-6 col-md-4 col-lg-3" data-aos="fade-up">
-            <div
-              class="result-print-item"
-              data-bs-toggle="modal"
-              data-bs-target="#modalPrint1"
-            >
-              <img
-                src="assets/prints/Print 1.jpeg"
-                alt="Resultado 1"
-                loading="lazy"
-              />
+
+        <div id="carouselV4" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            <!-- Case 1 -->
+            <div class="carousel-item active">
+              <div class="case-card-v4" data-bs-toggle="modal" data-bs-target="#modalPrint1">
+                <img src="assets/prints/Print 1.jpeg" alt="Resultado 1">
+                <div class="overlay-v4">
+                  <div class="about-v4">
+                    <span class="role-v4">E-commerce</span>
+                    <h3 class="name-v4">Explosão de Vendas</h3>
+                    <p class="desc-v4">Otimização completa do funil de vendas resultando em um crescimento exponencial de conversão direta.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Case 2 -->
+            <div class="carousel-item">
+              <div class="case-card-v4" data-bs-toggle="modal" data-bs-target="#modalPrint2">
+                <img src="assets/prints/Print 2.jpeg" alt="Resultado 2">
+                <div class="overlay-v4">
+                  <div class="about-v4">
+                    <span class="role-v4">Tráfego Pago</span>
+                    <h3 class="name-v4">ROI de Alto Impacto</h3>
+                    <p class="desc-v4">Gestão estratégica de anúncios que maximizou o retorno sobre investimento com escala sustentável.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Case 3 -->
+            <div class="carousel-item">
+              <div class="case-card-v4" data-bs-toggle="modal" data-bs-target="#modalPrint3">
+                <img src="assets/prints/Print 3 .jpeg" alt="Resultado 3">
+                <div class="overlay-v4">
+                  <div class="about-v4">
+                    <span class="role-v4">Social Media</span>
+                    <h3 class="name-v4">Engajamento Real</h3>
+                    <p class="desc-v4">Criação de conteúdo viral e autoridade digital que transformou seguidores em embaixadores da marca.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Case 4 -->
+            <div class="carousel-item">
+              <div class="case-card-v4" data-bs-toggle="modal" data-bs-target="#modalPrint4">
+                <img src="assets/prints/Print 4.jpeg" alt="Resultado 4">
+                <div class="overlay-v4">
+                  <div class="about-v4">
+                    <span class="role-v4">Performance</span>
+                    <h3 class="name-v4">Escalabilidade Digital</h3>
+                    <p class="desc-v4">Implementação de processos que permitiram o negócio dobrar de tamanho sem perder a qualidade no atendimento.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Case 5 -->
+            <div class="carousel-item">
+              <div class="case-card-v4" data-bs-toggle="modal" data-bs-target="#modalPrint5">
+                <img src="assets/prints/Print 5.jpeg" alt="Resultado 5">
+                <div class="overlay-v4">
+                  <div class="about-v4">
+                    <span class="role-v4">Leads Qualificados</span>
+                    <h3 class="name-v4">Máquina de Vendas</h3>
+                    <p class="desc-v4">Geração contínua de potenciais clientes prontos para fechar negócio através de estratégias de captação.</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-          <!-- Print 2 -->
-          <div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="100">
-            <div
-              class="result-print-item"
-              data-bs-toggle="modal"
-              data-bs-target="#modalPrint2"
-            >
-              <img
-                src="assets/prints/Print 2.jpeg"
-                alt="Resultado 2"
-                loading="lazy"
-              />
-            </div>
-          </div>
-          <!-- Print 3 -->
-          <div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="200">
-            <div
-              class="result-print-item"
-              data-bs-toggle="modal"
-              data-bs-target="#modalPrint3"
-            >
-              <img
-                src="assets/prints/Print 3 .jpeg"
-                alt="Resultado 3"
-                loading="lazy"
-              />
-            </div>
-          </div>
-          <!-- Print 4 -->
-          <div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="300">
-            <div
-              class="result-print-item"
-              data-bs-toggle="modal"
-              data-bs-target="#modalPrint4"
-            >
-              <img
-                src="assets/prints/Print 4.jpeg"
-                alt="Resultado 4"
-                loading="lazy"
-              />
-            </div>
-          </div>
-          <!-- Print 5 -->
-          <div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="400">
-            <div
-              class="result-print-item"
-              data-bs-toggle="modal"
-              data-bs-target="#modalPrint5"
-            >
-              <img
-                src="assets/prints/Print 5.jpeg"
-                alt="Resultado 5"
-                loading="lazy"
-              />
-            </div>
-          </div>
-          <!-- Print 6 -->
-          <div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="500">
-            <div
-              class="result-print-item"
-              data-bs-toggle="modal"
-              data-bs-target="#modalPrint6"
-            >
-              <img
-                src="assets/prints/Print 6.jpeg"
-                alt="Resultado 6"
-                loading="lazy"
-              />
-            </div>
-          </div>
-          <!-- Print 7 -->
-          <div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="600">
-            <div
-              class="result-print-item"
-              data-bs-toggle="modal"
-              data-bs-target="#modalPrint7"
-            >
-              <img
-                src="assets/prints/Print 7 .jpeg"
-                alt="Resultado 7"
-                loading="lazy"
-              />
-            </div>
-          </div>
+
+          <!-- Controles Estilo V4 -->
+          <button class="carousel-v4-control carousel-v4-prev" type="button" data-bs-target="#carouselV4" data-bs-slide="prev">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          <button class="carousel-v4-control carousel-v4-next" type="button" data-bs-target="#carouselV4" data-bs-slide="next">
+            <i class="fas fa-chevron-right"></i>
+          </button>
         </div>
+      </div>
+    </section>
 
         <!-- Nova Seção: Depoimentos (Prova Social) -->
         <div class="mt-5 pt-4">
